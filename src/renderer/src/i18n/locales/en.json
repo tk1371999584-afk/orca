@@ -22349,7 +22349,10 @@
         "firstOf": "{{starts}} — whichever came first",
         "or": ", or ",
         "savedTrigger": "Saved: {{description}}",
-        "currentSettings": "Current settings"
+        "currentSettings": "Current settings",
+        "created": "Created automation",
+        "updated": "Updated automation",
+        "open": "Open"
       },
       "botContext": {
         "soul": "Updated soul applied",
