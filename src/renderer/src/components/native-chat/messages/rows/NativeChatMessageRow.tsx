@@ -15,7 +15,7 @@ import { nativeChatMessageBotCard } from '../../native-chat-bot-cards'
 import { deriveNativeChatRowContent } from '../../../../../../shared/native-chat/transcript/row-content/native-chat-row-content'
 import { NativeChatReasoningRow } from '../reasoning/NativeChatReasoningRow'
 import { NativeChatAutomationResultRow } from '../../automation-run/NativeChatAutomationResultRow'
-import { NativeChatWaitEndedRow, NativeChatWaitRow } from '../../automation-run/NativeChatWaitRow'
+import { NativeChatWaitEndedRow } from '../../automation-run/NativeChatWaitRow'
 import { NativeChatAutomationSavedRow } from '../../automation-run/NativeChatAutomationSavedRow'
 import { NativeChatBotItemNoteRow } from '../../bot-items/NativeChatBotItemNoteRow'
 import { NativeChatAutomationRunRow } from '../../automation-run/NativeChatAutomationRunRow'
@@ -149,20 +149,6 @@ function MessageRowContent(props: MessageRowProps): React.JSX.Element | null {
     return null
   }
 
-  if (message.automationSaved?.automation.once) {
-    return (
-      <div ref={rowRef} data-native-chat-message-id={message.id}>
-        <NativeChatWaitRow
-          messageId={message.id}
-          automation={message.automationSaved.automation}
-          once={message.automationSaved.automation.once}
-          ended={message.savedWaitEnded}
-          timestamp={message.timestamp}
-        />
-      </div>
-    )
-  }
-
   if (message.automationRunNotStarted) {
     const notStarted = message.automationRunNotStarted
     return (
@@ -218,6 +204,7 @@ function MessageRowContent(props: MessageRowProps): React.JSX.Element | null {
           saved={message.automationSaved}
           timestamp={message.timestamp}
           disclosureId={message.id}
+          shortened={message.shortened}
         />
       </div>
     )
