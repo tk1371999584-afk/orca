@@ -22298,6 +22298,7 @@
         "you": "You"
       },
       "automationSaved": {
+        "webhookHint": "Point your service at this URL",
         "gettingUrl": "Getting the URL…",
         "editDraft": "Change “{{name}}” so that ",
         "resultsInEachRun": "In each run",
