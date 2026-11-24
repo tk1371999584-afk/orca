@@ -29,6 +29,8 @@ type Link = SharedHostRelayLink<PhoneSharedAgent>
 // backing off to at most HELD_POLL_MAX_MS while it doesn't answer.
 const HELD_POLL_MS = 30_000
 const HELD_POLL_MAX_MS = 5 * 60_000
+// Reads the phone answers from the host's last answer while it is away, as Home keeps a computer's list.
+const KEPT_READS: ReadonlySet<string> = new Set(['bots.chatTree'])
 
 const failure = (method: string, code: string, message: string): RpcFailure => ({
   id: method,
@@ -58,6 +60,8 @@ export class PhoneSharedAgents {
   private readonly held: PhoneSharedAgentHeld
   private heldTimer: ReturnType<typeof setTimeout> | null = null
   private heldReadFailures = 0
+  // This launch's last answer to each kept read, by share, method and params.
+  private readonly kept = new Map<string, RpcResponse>()
 
   constructor(private readonly now: () => number = Date.now) {
     this.held = new PhoneSharedAgentHeld({
@@ -188,15 +192,21 @@ export class PhoneSharedAgents {
         return held
       }
     }
+    const keptKey = KEPT_READS.has(method)
+      ? `${entry.shareId}\0${method}\0${JSON.stringify(params ?? null)}`
+      : null
     if (link !== 'live') {
-      return this.offline(entry, method)
+      return (keptKey && this.kept.get(keptKey)) || this.offline(entry, method)
     }
     try {
       const response = await this.linkFor(entry).request(method, params)
       this.held.noteAnswer(entry, method, params, response)
+      if (keptKey && response.ok) {
+        this.kept.set(keptKey, response)
+      }
       return response
     } catch {
-      return this.offline(entry, method)
+      return (keptKey && this.kept.get(keptKey)) || this.offline(entry, method)
     }
   }
 
