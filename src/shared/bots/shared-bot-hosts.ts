@@ -1,7 +1,8 @@
 // The agents other people shared with this Orca account, as main publishes them to the window: each is
 // a host the app reaches over Orca Relay by its own environment id.
+import type { SharedHostLink } from '../remote-runtime/relay/client/shared-host-relay-link'
 
-export type SharedBotHostLink = 'live' | 'connecting' | 'offline' | 'unpaired'
+export type SharedBotHostLink = SharedHostLink
 
 /** A held message as Orca Cloud last reported it: waiting for the host, in its journal, or refused. */
 export type SharedBotHeldState = 'waiting' | 'delivered' | 'not_sent'
