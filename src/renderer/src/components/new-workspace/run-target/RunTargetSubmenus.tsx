@@ -194,7 +194,7 @@ export function AddHostSubmenuRow({
               label={t('auto.components.NewWorkspaceComposerCard.addSshHost', 'Add SSH host')}
               detail={t(
                 'auto.components.NewWorkspaceComposerCard.addSshHostHint',
-                'Use an existing machine over SSH'
+                'A machine you can reach over SSH'
               )}
               armed={hoveredKey === 'ssh'}
               current={false}
@@ -214,7 +214,7 @@ export function AddHostSubmenuRow({
               )}
               detail={t(
                 'auto.components.NewWorkspaceComposerCard.addRemoteOrcaServerHint',
-                'Pair another Orca runtime'
+                'Another computer running Orca; no SSH needed'
               )}
               armed={hoveredKey === 'remote'}
               current={false}
