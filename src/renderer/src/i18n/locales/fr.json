@@ -20584,8 +20584,6 @@
         "label": "Zone de message et demandes"
       },
       "automationSaved": {
-        "resultsInRuns": "résultats dans chaque exécution",
-        "paused": "en pause",
         "webhookHint": "Faites pointer votre service vers cette URL",
         "gettingUrl": "Récupération de l’URL…",
         "editDraft": "Modifiez « {{name}} » pour que ",
@@ -20598,10 +20596,8 @@
         "agent": "Agent",
         "runNow": "Exécuter maintenant",
         "loading": "Chargement",
-        "deleted": "Cette automatisation a été supprimée",
         "loadFailed": "Impossible de lire cette automatisation",
-        "openFullPage": "Ouvrir la page",
-        "onAgent": "avec {{name}}"
+        "openFullPage": "Ouvrir la page"
       },
       "mcp": {
         "status": {

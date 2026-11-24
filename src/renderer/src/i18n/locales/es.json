@@ -20289,8 +20289,6 @@
         "label": "Cuadro de mensaje y solicitudes"
       },
       "automationSaved": {
-        "resultsInRuns": "resultados en cada ejecución",
-        "paused": "en pausa",
         "webhookHint": "Dirige tu servicio a esta URL",
         "gettingUrl": "Obteniendo la URL…",
         "editDraft": "Cambia «{{name}}» para que ",
@@ -20303,10 +20301,8 @@
         "agent": "Agente",
         "runNow": "Ejecutar ahora",
         "loading": "Cargando",
-        "deleted": "Esta automatización se eliminó",
         "loadFailed": "No se pudo leer esta automatización",
-        "openFullPage": "Abrir página",
-        "onAgent": "con {{name}}"
+        "openFullPage": "Abrir página"
       },
       "mcp": {
         "status": {
