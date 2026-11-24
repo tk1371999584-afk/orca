@@ -823,25 +823,13 @@
     },
     "customKeyModal": {
       "add": "Ekle",
-      "addShortcut": "Kısayol Ekle",
-      "command": "Komut",
       "commandPlaceholder": "Örn. pnpm build",
       "editing": "Düzenleme",
       "function": "İşlev",
       "key": "Tuş",
-      "label": "Etiket",
-      "labelPlaceholder": "Örn. Derle",
-      "manageShortcuts": "Kısayolları Yönet",
-      "manageShortcutsHint": "Kısayol tuşlarını gösterin, gizleyin veya yeniden sıralayın",
-      "modifiers": "Değiştirici Tuşlar",
-      "moreKeys": "DİĞER TUŞLAR",
       "navigation": "Gezinme",
-      "pickKey": "Bir tuş seçin",
       "pressEnter": "Enter Tuşuna Bas",
-      "shortcutCombo": "Tuş Birleşimi",
-      "shortcutComboHint": "Ctrl, Alt ve Shift ile tuş birleşimleri oluşturun",
-      "textMacro": "Metin Makrosu",
-      "textMacroHint": "Özel metin komutu gönderin"
+      "labelPlaceholder": "Örn. Derle"
     },
     "dictationSetupSheet": {
       "description": "Bir model indirin veya seçin ve eşleştirilmiş bilgisayarda sesli yazmayı etkinleştirin — tümünü buradan yapabilirsiniz.",
@@ -2028,12 +2016,7 @@
       "messageModeLabel": "Mesaj modu: yazın, ardından gönderin. Tuş moduna geç",
       "moreKeys": "Diğer tuşlar ve işlemler",
       "showKeyboard": "Klavyeyi göster",
-      "dismissKeyboardHint": "Ekran klavyesini gizler ve geçerli terminal oturumunu açık tutar.",
-      "switchToDesktopMode": "Masaüstü moduna geç",
-      "switchToPhoneMode": "Telefon moduna geç",
-      "pasteFromClipboard": "Panodan yapıştır",
-      "paste": "Yapıştır",
-      "addCustomShortcut": "Özel kısayol ekle"
+      "pasteFromClipboard": "Panodan yapıştır"
     },
     "activeContent": {
       "createTab": "Sekme Oluştur",
@@ -2562,20 +2545,12 @@
       "switchToDesktop": "Masaüstü Moduna Geç",
       "switchToPhone": "Telefon Moduna Geç"
     },
-    "terminalInputActions": {
-      "attachFileHint": "Fotoğraf yerine dosya eklemek için basılı tutun",
-      "attachPhoto": "Fotoğraf ekle",
-      "sendingImage": "Görsel gönderiliyor"
-    },
     "terminalLiveInputStatus": {
       "listening": "Dinliyor",
-      "liveInput": "Canlı giriş",
       "preparingMic": "Mikrofon hazırlanıyor",
       "processing": "İşleniyor",
       "releaseMicHint": "Durdurmak için mikrofonu bırakın",
-      "startingMic": "Mikrofon başlatılıyor",
-      "uploadingImage": "Görsel sunucuya yükleniyor",
-      "uploadingImageTitle": "Görsel yükleniyor"
+      "startingMic": "Mikrofon başlatılıyor"
     },
     "terminalRecords": {
       "defaultTitle": "Terminal"
@@ -2832,17 +2807,14 @@
     "terminalMoreKeys": {
       "sendKey": "{{label}} gönder",
       "paste": "Yapıştır",
-      "sending": "Gönderiliyor…",
       "photo": "Fotoğraf",
       "file": "Dosya",
       "desktopWidth": "Masaüstü genişliği",
       "phoneWidth": "Telefon genişliği",
       "keys": "Tuşlar",
-      "combos": "Kombinasyonlar",
       "yourKeys": "Tuşlarınız",
       "deleteKeyHint": "Bu tuşu silmek için uzun basın",
-      "addCustomKey": "Özel tuş ekle",
-      "addKey": "Tuş ekle"
+      "addCustomKey": "Özel tuş ekle"
     },
     "terminalPaneView": {
       "focusedPane": "{{title}}, odakta",
@@ -4460,7 +4432,6 @@
     }
   },
   "bots": {
-    "section": {},
     "link": {
       "pairTitle": "Bilgisayar eşleyin",
       "pairRequired": "Bu bağlantıyı açmak için bu telefonu bir bilgisayarla eşleyin, ardından bağlantıyı yeniden açın.",
