@@ -38,6 +38,15 @@ const ResumeCredential = z.object({
   relay: z.object({ cellUrl: Text, relayHostId: Text })
 })
 
+// A phone of this computer's that the host gave a key of its own: `removed` once the phone was unpaired
+// here, until the host has ended that key.
+const SharedBotPhone = z.object({
+  phoneDeviceId: Text,
+  hostDeviceId: Text,
+  removed: z.literal(true).optional()
+})
+export type SharedBotPhone = z.infer<typeof SharedBotPhone>
+
 const SharedBotHostEntry = z.object({
   shareId: BotShareIdSchema,
   // The paired-server id the app routes this host's calls by; minted once, kept for the share's life.
@@ -61,7 +70,9 @@ const SharedBotHostEntry = z.object({
   acceptedAt: z.number().int().nonnegative().optional(),
   // This computer's folder workspace its chats open in; absent until made (and in a store from before).
   homeWorkspaceId: Text.optional(),
-  held: z.array(SharedBotHeldMessage)
+  held: z.array(SharedBotHeldMessage),
+  // Absent in a store from before phones reached shared agents.
+  phones: z.array(SharedBotPhone).default([])
 })
 export type SharedBotHostEntry = z.infer<typeof SharedBotHostEntry>
 
@@ -83,7 +94,8 @@ export function newSharedBotHostEntry(share: {
     ownerName: share.ownerName,
     deviceKey: { publicKeyB64: b64(device.publicKey), secretKeyB64: b64(device.secretKey) },
     sealKey: { publicKeyB64: b64(seal.publicKey), secretKeyB64: b64(seal.secretKey) },
-    held: []
+    held: [],
+    phones: []
   }
 }
 

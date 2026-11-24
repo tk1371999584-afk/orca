@@ -6,7 +6,7 @@ import { z } from 'zod'
 /** `chat`: the session it names must be one of the teammate's own chats on the shared bot.
  *  `bot`: the bot it names must be the shared bot; its handler lists only the teammate's chats.
  *  `scoped`: names nothing; what it returns comes from `botShareScopedView` alone.
- *  `self`: bound to the caller's own connection (its Relay credential, its own uploads). */
+ *  `self`: bound to the caller's own connection (its Relay credential, its uploads, its phone). */
 export type BotShareMethodAccess =
   | { kind: 'chat'; sessionId: (params: unknown) => string | undefined }
   | { kind: 'bot'; botId: (params: unknown) => string | undefined }
