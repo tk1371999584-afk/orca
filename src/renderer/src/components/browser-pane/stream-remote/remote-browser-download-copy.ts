@@ -83,7 +83,8 @@ async function copyHere(
   { toastId, target, copyId, filename }: DownloadCopyOffer,
   expectedEnvironmentPairingRevision: number | undefined
 ): Promise<void> {
-  let canceled = false
+  // Main refuses a Cancel once the file is being moved into Downloads; the copy then ends as usual.
+  let cancelRequest: Promise<boolean> | null = null
   toast.loading(
     translate('browser.serverPage.download.copying', 'Downloading {{filename}} to this computer…', {
       filename
@@ -95,8 +96,9 @@ async function copyHere(
         label: translate('auto.components.browser.pane.BrowserPane.fa6ea61de3', 'Cancel'),
         onClick: (event: ReactMouseEvent) => {
           event.preventDefault()
-          canceled = true
-          void window.api.browser.cancelServerDownloadCopy({ copyId })
+          cancelRequest ??= window.api.browser
+            .cancelServerDownloadCopy({ copyId })
+            .catch(() => false)
         }
       }
     }
@@ -129,7 +131,7 @@ async function copyHere(
       }
     )
   } catch (error) {
-    if (canceled) {
+    if (cancelRequest && (await cancelRequest)) {
       // The server's copy stays; nothing was left here.
       toast.dismiss(toastId)
       return

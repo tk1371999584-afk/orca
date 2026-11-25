@@ -29,14 +29,14 @@ const COPY_START_TIMEOUT_MS = 60_000
 const COPY_PROGRESS_TIMEOUT_MS = 60_000
 const COPY_RELEASE_TIMEOUT_MS = 10_000
 
-// Running copies by copy id, for Cancel.
-const runningCopies = new Map<string, AbortController>()
+// Running copies by copy id, for Cancel; `finishing` once the file is being moved into Downloads.
+const runningCopies = new Map<string, { controller: AbortController; finishing: boolean }>()
 
 /**
  * Copies a download a paired server saved into this computer's Downloads under a free name. The
  * server streams it as binary frames on the stream's own socket and sends each next one only once
  * this side has written it to disk, so memory stays one window whatever the file's size. A failure
- * or Cancel leaves nothing here; the server's copy stays either way.
+ * or Cancel before the move into Downloads leaves nothing here; the server's copy stays either way.
  */
 export async function copyBrowserServerDownloadHere(
   args: BrowserServerDownloadCopyArgs,
@@ -47,7 +47,8 @@ export async function copyBrowserServerDownloadHere(
     throw new Error('This download is already being copied.')
   }
   const controller = new AbortController()
-  runningCopies.set(copyId, controller)
+  const running = { controller, finishing: false }
+  runningCopies.set(copyId, running)
   const signal = AbortSignal.any([controller.signal, rendererGone])
   // Removing or re-pairing the server retires its transport; this copy's socket goes with it.
   const stopRetirement = onRuntimeEnvironmentTransportGenerationRetired((retired) => {
@@ -206,6 +207,8 @@ export async function copyBrowserServerDownloadHere(
     await file.close()
     handle = null
     signal.throwIfAborted()
+    // Too late to cancel from here: a copy stopped partway into Downloads couldn't be safely removed.
+    running.finishing = true
     const destinationPath = await promoteDownloadedFileWithoutOverwrite(
       tempPath,
       reserved.savePath,
@@ -244,9 +247,15 @@ export async function copyBrowserServerDownloadHere(
   }
 }
 
-/** Cancel: stops the copy and removes what it wrote here. */
+/**
+ * Cancel: stops the copy and removes what it wrote here. False when there is nothing to cancel or
+ * the file is already being moved into Downloads, so the copy ends saved (or failed) as usual.
+ */
 export function cancelBrowserServerDownloadCopy(copyId: string): boolean {
-  const controller = runningCopies.get(copyId)
-  controller?.abort(new Error('Canceled.'))
-  return controller !== undefined
+  const running = runningCopies.get(copyId)
+  if (!running || running.finishing) {
+    return false
+  }
+  running.controller.abort(new Error('Canceled.'))
+  return true
 }
